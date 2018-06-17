@@ -10,6 +10,9 @@
 
 var greetingFactory = function(greeting) {
   // INSERT CODE HERE
+  return function(name){
+  	return greeting + ', ' + name;
+  }
 }
 
 // sumCalculator takes in an initial number that is stored and returns a function
@@ -28,6 +31,20 @@ var greetingFactory = function(greeting) {
 
 var sumCalculator = function(initialValue) {
   // INSERT CODE HERE
+   var store = initialValue;
+  return function () {
+  	if (arguments) {
+  		var argsArr = Array.prototype.slice.call(arguments,0);
+      //console.log(argsArr);
+  		argsArr.forEach(function(elem){
+  			store = store + elem;
+        
+  		});
+      return store;
+  	} else {
+  		return store;
+  	}
+  }
 }
 
 // coinFlipTally should generate a storage object, take no arguments, and 
@@ -58,8 +75,47 @@ var sumCalculator = function(initialValue) {
 
 var coinFlipTally = function() {
   // INSERT CODE HERE
-
+var storage = {};
+ storage.heads  = 0;
+ storage.tails = 0;
+ extend (storage, storageMethods);
+ return storage;
 }
+
+ var extend = function (ob1, ob2){
+   for (var key in ob2){
+     ob1[key]=ob2[key];
+   }
+   return ob1;
+ };
+
+storageMethods = {
+	makeCoinFlip : function () {
+    var num = Math.floor(Math.random() * Math.floor(2));
+    console.log(num);
+    if(num === 1) {
+    this.heads++;
+    //return heads;
+    } else {
+    this.tails++;
+    	//return tails;
+    }
+	},
+  checkTally : function(){
+  	return this;
+  }
+
+
+};
+
+
+
+
+
+
+
+
+
 
 module.exports = {
   greetingFactory: greetingFactory,
